@@ -33,7 +33,7 @@ public class PetResource {
 			@APIResponse(responseCode = "200", description = "Pet for id", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(ref = "Pet"))),
 			@APIResponse(responseCode = "404", description = "No Pet found for the id.") })
 	@GET
-	@Path("{petId}")
+	@Path("/{petId}")
 	public Response getPet(@PathParam("petId") int petId) {
 		if (petId < 0) {
 			return Response.status(Status.NOT_FOUND).build();
@@ -65,7 +65,8 @@ public class PetResource {
 		else{
 			for (int x=0; x<pets.size(); x++){
 				if (petId == pets.get(x).getPetId()){
-
+						pets.remove(x);
+					return Response.ok(pets).build();
 				}
 			}
 			return Response.status(Status.NOT_FOUND).build();
@@ -190,6 +191,7 @@ public class PetResource {
 				for (int x =0; x<searchList.size(); x++){
 					if (search.getAge() != searchList.get(x).getPetAge()){
 						searchList.remove(x);
+						x=0;
 					}
 				}
 			}

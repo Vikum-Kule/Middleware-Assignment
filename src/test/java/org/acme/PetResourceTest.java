@@ -15,18 +15,9 @@ public class PetResourceTest {
 	@Test
     public void testPetEndpoint() {
         given()
-          .when().get("/v1/pets")
+          .when().get("/pets")
           .then()
              .statusCode(200);
-//             .body(hasItem(
-// 		            allOf(
-//    		                hasEntry("pet_id", "1"),
-//    		                hasEntry("pet_type", "Dog"),
-//    		                hasEntry("pet_name", "Boola"),
-//    		                hasEntry("pet_age", "3")
-//    		            )
-//    		      )
-//    		 );
     }
 
 }
