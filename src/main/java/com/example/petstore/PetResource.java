@@ -14,7 +14,7 @@ import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 
-@Path("/v1/pets")
+@Path("/pets")
 @Produces("application/json")
 public class PetResource {
 	List<Pet> pets = new ArrayList<Pet>();
@@ -25,41 +25,6 @@ public class PetResource {
 			@APIResponse(responseCode = "200", description = "All Pets", content = @Content(mediaType = MediaType.APPLICATION_JSON, schema = @Schema(ref = "Pet"))) })
 	@GET
 	public Response getPets() {
-//		Pet pet1 = new Pet();
-//		pet1.setPetId(1);
-//		pet1.setPetAge(3);
-//		pet1.setPetName("Buula");
-//		pet1.setPetType("Dog");
-//
-//		Pet pet2 = new Pet();
-//		pet2.setPetId(2);
-//		pet2.setPetAge(1);
-//		pet2.setPetName("Poco");
-//		pet2.setPetType("Bird");
-//
-//		Pet pet3 = new Pet();
-//		pet3.setPetId(3);
-//		pet3.setPetAge(2);
-//		pet3.setPetName("Kivi");
-//		pet3.setPetType("Bird");
-//
-//		Pet pet4 = new Pet();
-//		pet4.setPetId(4);
-//		pet4.setPetAge(5);
-//		pet4.setPetName("Kiti");
-//		pet4.setPetType("Cat");
-//
-//		Pet pet5 = new Pet();
-//		pet5.setPetId(5);
-//		pet5.setPetAge(3);
-//		pet5.setPetName("Wufi");
-//		pet5.setPetType("Dog");
-//
-//		pets.add(pet1);
-//		pets.add(pet2);
-//		pets.add(pet3);
-//		pets.add(pet4);
-//		pets.add(pet5);
 
 		return Response.ok(pets).build();
 	}
@@ -73,13 +38,12 @@ public class PetResource {
 		if (petId < 0) {
 			return Response.status(Status.NOT_FOUND).build();
 		}
-		Pet pet = new Pet();
-		pet.setPetId(petId);
-		pet.setPetAge(3);
-		pet.setPetName("Buula");
-		pet.setPetType("Dog");
-
-		return Response.ok(pet).build();
+		for(int x=0; x<pets.size(); x++){
+			if (petId == pets.get(x).getPetId()){
+				return Response.ok(pets.get(x)).build();
+			}
+		}
+		return Response.status(Status.NOT_FOUND).build();
 		
 	}
 
